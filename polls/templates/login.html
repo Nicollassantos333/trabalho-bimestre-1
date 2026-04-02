@@ -60,7 +60,7 @@
             {% csrf_token %}
             <input type="text" placeholder="USUARIO" required>
             <input type="password" placeholder="SENHA" required>
-            <button type="submit" formaction="{% url 'bem-vindo-ao-nosso-trabalho/' %}">CONECTAR</button>
+            <button type="submit" formaction="{% url 'bemvindo' %}">CONECTAR</button>
         </form>
         <a href="{% url 'cadastro' %}">CRIAR CONTA</a>
     </div>
