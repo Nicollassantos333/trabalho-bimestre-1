@@ -1,11 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TechAuth - cadastro</title>
+    <style>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+            background: #020205;
+            color: #00d4ff;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            background: rgba(10, 10, 20, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            width: 350px;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+        .tech-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #00d4ff;
+            margin-bottom: 20px;
+            transition: transform 0.5s;
+        }
+        .tech-img:hover { transform: rotate(360deg); }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            background: #000;
+            border: 1px solid #1a1a1a;
+            color: #fff;
+            border-radius: 5px;
+            outline: none;
+        }
+        input:focus { border-color: #00d4ff; box-shadow: 0 0 10px #00d4ff; }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #00d4ff, #0055ff);
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        button:hover { letter-spacing: 2px; box-shadow: 0 0 20px #00d4ff; }
+        a { color: #555; text-decoration: none; font-size: 13px; display: block; margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <h1>AEEEEEEEEEEEEEE</h1>
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" class="tech-img" alt="Logo">
+        <h2>NEW_USER_REG</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="ID_USUARIO" required>
+            <input type="email" placeholder="EMAIL_SYS" required>
+            <input type="password" placeholder="ACCESS_KEY" required>
+            <button type="submit" formaction="{% url 'login' %}">EXECUTAR REGISTRO</button>
+        </form>
+        <a href="{% url 'login' %}"ACESSAR SISTEMA</a>
+    </div>
 </body>
 </html>

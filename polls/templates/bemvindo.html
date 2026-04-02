@@ -1,11 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Terminal - Bem-vindo</title>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        body {
+            background: #000;
+            color: #00ff41; /* Verde Matrix/Tech */
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .main-img {
+            width: 200px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 15px #00ff41);
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 3rem;
+            text-shadow: 0 0 20px #00ff41;
+            animation: blink 2s infinite;
+        }
+        .status-bar {
+            background: #111;
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: 1px solid #00ff41;
+            font-family: monospace;
+        }
+        .btn-exit {
+            margin-top: 50px;
+            color: #ff007f;
+            text-decoration: none;
+            border: 1px solid #ff007f;
+            padding: 10px 20px;
+            transition: 0.3s;
+        }
+        .btn-exit:hover { background: #ff007f; color: #000; box-shadow: 0 0 20px #ff007f; }
+    </style>
 </head>
 <body>
-    <h1>FUNCIONOU</h1>
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="main-img" alt="Tech Dashboard">
+    <h1>BEM-VINDO_AGENTE</h1>
+    <div class="status-bar">STATUS: CONEXÃO_ESTÁVEL // NÍVEL_ACESSO: ALPHA</div>
+    <a href="{% url 'login' %}" class="btn-exit">ENCERRAR_SESSÃO</a>
 </body>
 </html>
