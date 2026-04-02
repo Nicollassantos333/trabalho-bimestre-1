@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from polls import views
+from polls import forms
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.perguntas),
+    path('', views.cadastro, name='cadastro'),
+    path('login/', views.login, name='login'),
     path('bem-vindo-ao-nosso-trabalho/', views.bem_vindo, name='bemvindo'),
+
 ]
