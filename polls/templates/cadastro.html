@@ -69,12 +69,12 @@
 <body>
     <div class="container">
         <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" class="tech-img" alt="Logo">
-        <h2>NEW_USER_REG</h2>
+        <h2>CADASTRE-SE</h2>
         <form method="POST">
             {% csrf_token %}
-            <input type="text" placeholder="ID_USUARIO" required>
-            <input type="email" placeholder="EMAIL_SYS" required>
-            <input type="password" placeholder="ACCESS_KEY" required>
+            <input type="text" placeholder="usuário" required>
+            <input type="email" placeholder="e-mail" required>
+            <input type="password" placeholder="senha" required>
             <button type="submit" formaction="{% url 'login' %}">EXECUTAR REGISTRO</button>
         </form>
         <a href="{% url 'login' %}"ACESSAR SISTEMA</a>

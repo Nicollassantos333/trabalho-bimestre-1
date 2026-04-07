@@ -2,60 +2,119 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Terminal - Bem-vindo</title>
+    <title>TechAuth - Painel</title>
     <style>
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+        /* --- ANIMAÇÕES --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+
+        @keyframes bgScroll {
+            from { background-position: 0 0; }
+            to { background-position: -100% 100%; }
         }
-        body {
-            background: #000;
-            color: #00ff41; /* Verde Matrix/Tech */
-            height: 100vh;
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.2); border-color: rgba(0, 255, 136, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.5); border-color: rgba(0, 255, 136, 1); }
+        }
+
+        /* --- ESTILOS GERAIS --- */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin: 0;
+            overflow: hidden;
+            color: #fff;
+            
+            /* Fundo Dinâmico de Partículas/Estrelas */
+            background-color: #05050a;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            animation: bgScroll 60s linear infinite;
         }
-        .main-img {
-            width: 200px;
-            animation: float 4s ease-in-out infinite;
-            filter: drop-shadow(0 0 15px #00ff41);
+
+        /* --- O CARD CENTRAL (Glassmorphism) --- */
+        .welcome-card {
+            background: rgba(255, 255, 255, 0.03); /* Fundo ultra-transparente */
+            backdrop-filter: blur(15px) saturate(180%); /* Efeito de vidro embaçado */
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            width: 400px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            animation: fadeIn 1s ease-out, glowPulse 4s infinite 1s; /* Entrada e Pulso */
+        }
+
+        /* --- O ÍCONE --- */
+        .tech-icon {
+            width: 80px;
+            filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.8));
             margin-bottom: 30px;
         }
+
+        /* --- TEXTOS --- */
         h1 {
-            font-size: 3rem;
-            text-shadow: 0 0 20px #00ff41;
-            animation: blink 2s infinite;
+            font-size: 2.2rem;
+            margin: 0;
+            font-weight: 300;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #00ff88; /* Verde Neon */
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.4);
         }
-        .status-bar {
-            background: #111;
-            padding: 10px 30px;
-            border-radius: 50px;
-            border: 1px solid #00ff41;
-            font-family: monospace;
+
+        p {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 15px 0 40px;
+            line-height: 1.6;
         }
-        .btn-exit {
-            margin-top: 50px;
-            color: #ff007f;
+
+        /* --- BOTÃO MODERNO --- */
+        .btn-logout {
+            background: linear-gradient(45deg, #00ff88, #008f5d);
+            border: none;
+            color: #000;
+            padding: 15px 40px;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 50px; /* Botão pílula */
+            cursor: pointer;
             text-decoration: none;
-            border: 1px solid #ff007f;
-            padding: 10px 20px;
-            transition: 0.3s;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
         }
-        .btn-exit:hover { background: #ff007f; color: #000; box-shadow: 0 0 20px #ff007f; }
+
+        .btn-logout:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(0, 255, 136, 0.6);
+        }
+
+        .btn-logout:active {
+            transform: translateY(0);
+        }
+
     </style>
 </head>
 <body>
-    <img src="https://cdn-icons-png.flaticon.com/512/616/616490.png" class="main-img" alt="Tech Dashboard">
-    <h1>BEM-VINDO_AGENTE</h1>
-    <div class="status-bar">STATUS: CONEXÃO_ESTÁVEL // NÍVEL_ACESSO: ALPHA</div>
-    <a href="{% url 'login' %}" class="btn-exit">ENCERRAR_SESSÃO</a>
+    <div class="welcome-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/6143/6143924.png" class="tech-icon" alt="Code Icon">
+        <h1>BEM-VINDO</h1>
+        <p>Você está conectado com autorização.</p>
+        <a href="{% url 'login' %}" class="btn-logout">ENCERRAR SESSÃO</a>
+    </div>
 </body>
 </html>

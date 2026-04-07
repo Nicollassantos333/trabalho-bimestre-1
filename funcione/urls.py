@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.cadastro, name='cadastro'),
     path('login/', views.login, name='login'),
-    path('bem-vindo-ao-nosso-trabalho/', views.bem_vindo, name='bemvindo'),
+    path('bem-vindo/', views.bem_vindo, name='bemvindo'),
 
 ]
