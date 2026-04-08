@@ -118,10 +118,9 @@
         
         <form method="POST">
             {% csrf_token %}
-            <input type="text" placeholder="nome" required>
-            <input type="password" placeholder="senha" required>
-            
-            <button type="submit" formaction="{% url 'bemvindo' %}">ACESSAR</button>
+            <input type="text" name="nome" placeholder="nome" required>
+            <input type="password" name="senha" placeholder="senha" required>
+            <button type="submit" >ACESSAR</button>
         </form>
         
         <a href="{% url 'cadastro' %}">SOLICITAR NOVO ACESSO</a>

@@ -2,42 +2,37 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from polls.forms import pergunta
 
-# Cadastro do usuário
 def cadastro(request):
     if request.method == 'POST':
         form = pergunta(request.POST)
         if form.is_valid():
-            # Aqui você salva tudo na sessão
+            # TUDO AQUI DENTRO PRECISA DE UM TAB (4 espaços)
             request.session['dados_usuario'] = form.cleaned_data
-            return redirect('login') 
+            return redirect('login')
     else:
-        form = pergunta() 
-    
+        form = pergunta()
     return render(request, 'cadastro.html', {'form': form})
 
-# Pega as informações de cadastro e compara com as do login
 def login(request):
     if request.method == 'POST':
         form = pergunta(request.POST)
         if form.is_valid():
-            # Pegamos o pacote da sessão
+            # Buscamos o que foi salvo no cadastro
             cadastro_salvo = request.session.get('dados_usuario')
-            
-            if cadastro_salvo:
-                # CORREÇÃO: Usamos [] para acessar os dados do dicionário
-                nome_digitado = form.cleaned_data['nome']
-                nome_registrado = cadastro_salvo['nome']
-                
-                if nome_digitado == nome_registrado:
-                    # CORREÇÃO: Usamos () para a função redirect
-                    return redirect('bemvindo')
-            
-            return HttpResponse('ERRO: Usuário com esse login não encontrado')
+            nome_digitado = form.cleaned_data['nome']
+
+            if cadastro_salvo and nome_digitado == cadastro_salvo['nome']:
+                # CRIAMOS O CRACHÁ: Agora o usuário está "logado" na sessão
+                request.session['usuario_autenticado'] = True
+                return redirect('bemvindo')
+            else:
+                return HttpResponse("Dados não conferem com o cadastro.")
     else:
-        form = pergunta() # Exibe o formulário vazio no primeiro acesso
-        
+        form = pergunta()
     return render(request, 'login.html', {'form': form})
-        
-# Redireciona para uma tela de boas vindas em html
+
 def bem_vindo(request):
+    # A TRAVA: Se não tiver o crachá na sessão, volta para o login
+    if not request.session.get('usuario_autenticado'):
+        return redirect('login')
     return render(request, 'bemvindo.html')

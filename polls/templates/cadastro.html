@@ -71,12 +71,12 @@
         <img src="https://cdn-icons-png.flaticon.com/512/2092/2092663.png" class="tech-img" alt="Logo">
         <h2>CADASTRE-SE</h2>
         <form method="POST">
-            {% csrf_token %}
-            <input type="text" placeholder="usuário" required>
-            <input type="email" placeholder="e-mail" required>
-            <input type="password" placeholder="senha" required>
-            <button type="submit" formaction="{% url 'login' %}">EXECUTAR REGISTRO</button>
-        </form>
+    {% csrf_token %}   
+    <input type="text" name="nome" placeholder="usuário" required>    
+    <input type="email" name="email" placeholder="e-mail" required>    
+    <input type="password" name="senha" placeholder="crie uma senha" required> 
+    <button type="submit">EXECUTAR REGISTRO</button>
+    </form>
         <a href="{% url 'login' %}"ACESSAR SISTEMA</a>
     </div>
 </body>
