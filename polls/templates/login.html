@@ -18,7 +18,7 @@
             background: #0a0a0f;
             padding: 50px;
             border: 1px solid #bc13fe;
-            border-radius: 15px; /* Bordas mais modernas */
+            border-radius: 15px; 
             text-align: center;
             box-shadow: 0 0 25px rgba(188, 19, 254, 0.2);
             animation: fadeInUp 0.8s ease-out;
@@ -29,7 +29,7 @@
             to { opacity: 1; transform: translateY(0); } 
         }
 
-        /* ÍCONE DE CÓDIGO/TECH */
+       
         .user-icon {
             width: 80px;
             filter: drop-shadow(0 0 8px #bc13fe);
@@ -67,7 +67,7 @@
             background: rgba(188, 19, 254, 0.05);
         }
 
-        /* BOTÃO REFEITO - ESTILO NEON PREMIUM */
+        
         button {
             width: 100%;
             background: transparent;
@@ -118,12 +118,12 @@
         
         <form method="POST">
             {% csrf_token %}
-            <input type="text" name="nome" placeholder="nome" required>
+            <input type="text" name="nome" placeholder="usuário" required>
             <input type="password" name="senha" placeholder="senha" required>
-            <button type="submit" >ACESSAR</button>
+            <button type="submit">ACESSAR</button>
         </form>
         
-        <a href="{% url 'cadastro' %}">SOLICITAR NOVO ACESSO</a>
+        <a href="{% url 'cadastro' %}">NÃO TEM UMA CONTA? CADASTRE-SE JÁ!</a>
     </div>
 </body>
 </html>
