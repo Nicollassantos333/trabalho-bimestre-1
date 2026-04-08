@@ -1,38 +1,44 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from polls.forms import pergunta
+from django.contrib import messages
+from polls.models import pergunta
+from django.contrib.auth.decorators import login_required
+
+# Create your views here
 
 def cadastro(request):
     if request.method == 'POST':
-        form = pergunta(request.POST)
-        if form.is_valid():
-            # TUDO AQUI DENTRO PRECISA DE UM TAB (4 espaços)
-            request.session['dados_usuario'] = form.cleaned_data
-            return redirect('login')
-    else:
-        form = pergunta()
-    return render(request, 'cadastro.html', {'form': form})
+        nome = request.POST.get('nome')
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+        pergunta.objects.create(nome=nome, email=email, senha=senha)
+        return redirect('login')
+    return render(request, 'cadastro.html')
 
 def login(request):
     if request.method == 'POST':
-        form = pergunta(request.POST)
-        if form.is_valid():
-            # Buscamos o que foi salvo no cadastro
-            cadastro_salvo = request.session.get('dados_usuario')
-            nome_digitado = form.cleaned_data['nome']
+        nome_digitado = request.POST.get('nome')
+        senha_digitada = request.POST.get('senha')
+        
+        # TESTE 1: Ver se os dados estão chegando
+        print(f"Tentativa de login: Nome={nome_digitado}, Senha={senha_digitada}")
 
-            if cadastro_salvo and nome_digitado == cadastro_salvo['nome']:
-                # CRIAMOS O CRACHÁ: Agora o usuário está "logado" na sessão
-                request.session['usuario_autenticado'] = True
-                return redirect('bemvindo')
-            else:
-                return HttpResponse("Dados não conferem com o cadastro.")
-    else:
-        form = pergunta()
-    return render(request, 'login.html', {'form': form})
+        usuario = pergunta.objects.filter(nome=nome_digitado, senha=senha_digitada).first()
+
+        if usuario:
+            # TESTE 2: Ver se o usuário foi encontrado
+            print(f"Usuário encontrado! ID: {usuario.id}")
+            request.session['usuario_id'] = usuario.id
+            return redirect('bemvindo')
+        else:
+            # TESTE 3: Se caiu aqui, os dados digitados não batem com o banco
+            print("Erro: Usuário não encontrado no banco de dados.")
+            return HttpResponse("Dados incorretos. Verifique o Admin.")
+
+    return render(request, 'login.html')
 
 def bem_vindo(request):
-    # A TRAVA: Se não tiver o crachá na sessão, volta para o login
-    if not request.session.get('usuario_autenticado'):
+    if 'usuario_id' not in request.session:
         return redirect('login')
     return render(request, 'bemvindo.html')

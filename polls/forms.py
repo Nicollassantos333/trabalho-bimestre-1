@@ -1,8 +1,15 @@
 from django import forms
+from polls.models import pergunta
 # Create your forms here.
 
+class CadastroForm(forms.ModelForm):
+    class Meta:
+        model = pergunta
+        fields = ['nome', 'email', 'senha']
+        widgets = {
+            'senha': forms.PasswordInput(),
+        }
 
-class pergunta(forms.Form):
-    nome = forms.CharField(label="Insira seu nome", max_length=20)
-    email = forms.EmailField(label="Insira seu endereço de Email", max_length=250)
-    senha = forms.CharField(label="Insira sua senha", max_length=20)
+class LoginForm(forms.Form): # O login continua sendo um Form simples
+    nome = forms.CharField()
+    senha = forms.CharField(widget=forms.PasswordInput())

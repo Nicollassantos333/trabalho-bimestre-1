@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from polls import views
-from polls import forms
+from polls.models import pergunta
 
 urlpatterns = [
     path('admin/', admin.site.urls),
